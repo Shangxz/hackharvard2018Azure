@@ -6,9 +6,10 @@ var app = express(); // define our app using express
 
 var port = process.env.PORT || 8080; // set our port
 
-app.get('/', function (req, res) {
-    console.log(req);
-    console.log(res);
+app.get('/keyText', function (req, res) {
+    // console.log(req);
+    // console.log(res);
+    console.log(req.query.text);
 
     var options = {
         method: 'POST',
@@ -26,7 +27,7 @@ app.get('/', function (req, res) {
                 [{
                     language: 'en',
                     id: '1',
-                    text: 'Hello world. This is some input text that I love.'
+                    text: req.query.text
                 }]
         },
         json: true
@@ -34,8 +35,8 @@ app.get('/', function (req, res) {
 
     request(options, function (error, response, body) {
         if (error) throw new Error(error);
-
-        console.log(body);
+        res.json(body.documents[0].keyPhrases);
+        console.log(body.documents[0].keyPhrases);
     });
 });
 

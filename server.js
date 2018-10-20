@@ -4,12 +4,10 @@ var request = require("request");
 
 var app = express(); // define our app using express
 
-var port = process.env.PORT || 8080; // set our port
-
 app.get('/keyText', function (req, res) {
     // console.log(req);
     // console.log(res);
-    console.log(req.query.text);
+    // console.log(req.query.text);
 
     var options = {
         method: 'POST',
@@ -40,4 +38,4 @@ app.get('/keyText', function (req, res) {
     });
 });
 
-app.listen(port);
+app.listen(8080);

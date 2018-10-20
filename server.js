@@ -42,7 +42,6 @@ app.post('/', upload.any(), function(req, res) {
 app.get('/keyText', function (req, res) {
     console.log(req);
     console.log(res);
-    var text = req.text;
 
     var options = {
         method: 'POST',
@@ -60,7 +59,7 @@ app.get('/keyText', function (req, res) {
                 [{
                     language: 'en',
                     id: '1',
-                    text: text
+                    text: 'Hello world. This is some input text that I love.'
                 }]
         },
         json: true

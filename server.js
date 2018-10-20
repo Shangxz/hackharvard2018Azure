@@ -96,10 +96,13 @@ router.get('/', function (req, res) {
 
     request(options, function (error, response, body) {
         if (error) throw new Error(error);
-        res.json(body.documents[0].keyPhrases);
-        console.log(body.documents[0].keyPhrases);
+        if (body.documents[0] == undefined) {
+            res.json([]);
+        }
+        else {
+            res.json(body.documents[0].keyPhrases);
+        }
     });
-
 });
 
 

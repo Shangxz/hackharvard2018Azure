@@ -96,42 +96,46 @@ router.get('/', function (req, res) {
 
     request(options, function (error, response, body) {
         if (error) throw new Error(error);
-        console.log(body.documents[0]);
+
+        var qStr = "";
         if (body.documents[0] == undefined) {
-            res.json([]);
+            qStr = req.query.text;
         }
         else {
             // res.json(body.documents[0].keyPhrases);
-            var qStr = body.documents[0].keyPhrases.join();
-            console.log(qStr);
-            var optionsImg = {
-                method: 'GET',
-                url: 'https://api.cognitive.microsoft.com/bing/v7.0/images/search',
-                qs: {
-                    q: qStr
-                },
-                headers: {
-                    'postman-token': '37f2fd13-4353-8101-15c7-8db4ad48f35f',
-                    'cache-control': 'no-cache',
-                    'content-type': 'application/json',
-                    'ocp-apim-subscription-key': '4f5a247648e449679e1ac58c04386def'
-                }
-            };
-
-            request(optionsImg, function (error, response, body) {
-                if (error) throw new Error(error);
-                bodyJson = JSON.parse(body);
-                // console.log(bodyJson.value);
-                console.log(qStr);
-                var imgList = [];
-                for (var i = 0; i < 35; i++){
-                    console.log(bodyJson.value[i].contentUrl);
-                    imgList.push(bodyJson.value[i].contentUrl);
-                }
-                var returnList = [qStr, bodyJson.value[0].contentUrl];
-                res.json(returnList);
-            });
+            qStr = body.documents[0].keyPhrases.join();
         }
+
+        console.log(qStr);
+        
+        var optionsImg = {
+            method: 'GET',
+            url: 'https://api.cognitive.microsoft.com/bing/v7.0/images/search',
+            qs: {
+                q: qStr
+            },
+            headers: {
+                'postman-token': '37f2fd13-4353-8101-15c7-8db4ad48f35f',
+                'cache-control': 'no-cache',
+                'content-type': 'application/json',
+                'ocp-apim-subscription-key': '4f5a247648e449679e1ac58c04386def'
+            }
+        };
+
+        request(optionsImg, function (error, response, body) {
+            if (error) throw new Error(error);
+            bodyJson = JSON.parse(body);
+            // console.log(bodyJson.value);
+            // console.log(qStr);
+            var imgList = [];
+            for (var i = 0; i < 35; i++) {
+                // console.log(bodyJson.value[i].contentUrl);
+                imgList.push(bodyJson.value[i].contentUrl);
+            }
+            var returnList = [qStr, bodyJson.value[0].contentUrl];
+            console.log(returnList);
+            res.json(returnList);
+        });
     });
 });
 

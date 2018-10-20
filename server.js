@@ -39,9 +39,11 @@ app.post('/', upload.any(), function(req, res) {
     res.send(payload[0].url);
 });
 
-app.get('/', function (req, res) {
+app.get('/keyText', function (req, res) {
     console.log(req);
     console.log(res);
+    var text = req.text;
+
     var options = {
         method: 'POST',
         url: 'https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/keyPhrases',
@@ -58,7 +60,7 @@ app.get('/', function (req, res) {
                 [{
                     language: 'en',
                     id: '1',
-                    text: 'Hello world. This is some input text that I love.'
+                    text: text
                 }]
         },
         json: true

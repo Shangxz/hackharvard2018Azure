@@ -38,4 +38,4 @@ app.get('/keyText', function (req, res) {
     });
 });
 
-app.listen(8080, "https://hharv2018node.azurewebsites.net");
+app.listen(process.env.PORT || 80);

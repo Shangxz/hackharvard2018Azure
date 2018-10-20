@@ -96,6 +96,7 @@ router.get('/', function (req, res) {
 
     request(options, function (error, response, body) {
         if (error) throw new Error(error);
+        console.log(body.documents[0]);
         if (body.documents[0] == undefined) {
             res.json([]);
         }

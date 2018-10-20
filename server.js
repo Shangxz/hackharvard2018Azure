@@ -38,4 +38,4 @@ app.get('/keyText', function (req, res) {
     });
 });
 
-app.listen(8080);
+app.listen(8080, "0.0.0.0");

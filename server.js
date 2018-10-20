@@ -4,6 +4,8 @@ var request = require("request");
 
 var app = express(); // define our app using express
 
+var port = process.env.PORT || 80;
+
 app.get('/keyText', function (req, res) {
     // console.log(req);
     // console.log(res);
@@ -38,4 +40,4 @@ app.get('/keyText', function (req, res) {
     });
 });
 
-app.listen(process.env.PORT || 80);
+app.listen(port);

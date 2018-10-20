@@ -128,7 +128,8 @@ router.get('/', function (req, res) {
                     console.log(bodyJson.value[i].contentUrl);
                     imgList.push(bodyJson.value[i].contentUrl);
                 }
-                res.json(bodyJson.value[0].contentUrl);
+                var returnList = [qStr, bodyJson.value[0].contentUrl];
+                res.json(returnList);
             });
         }
     });

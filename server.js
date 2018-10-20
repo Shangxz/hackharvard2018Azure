@@ -101,7 +101,9 @@ router.get('/', function (req, res) {
             res.json([]);
         }
         else {
-            res.json(body.documents[0].keyPhrases);
+            // res.json(body.documents[0].keyPhrases);
+            var qStr = body.documents[0].keyPhrases.join();
+            console.log(qStr);
         }
     });
 });

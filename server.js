@@ -5,6 +5,9 @@ var bodyParser = require('body-parser');
 var http = require('http');
 var request = require("request");
 
+var validator = require('validate-image-url');
+
+
 // configure app to use bodyParser()
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({
@@ -133,7 +136,7 @@ router.get('/', function (req, res) {
                         //     if (error) throw new Error(error);
                         //     console.log(body.predictions[0].tagName);
                         //     if (body.predictions[0].tagName == 'comic') {
-                                imgList.push(bodyJson.value[i].contentUrl);
+                        imgList.push(bodyJson.value[i].contentUrl);
                         //     }
                         // });
                     }
@@ -162,24 +165,36 @@ router.get('/', function (req, res) {
                     json: true
                 };
 
-                request(faceOptions, function (error, response, body) {
-                    if (error) throw new Error(error);
-                    console.log(body);
-                    if (body.length != 0) {
-                        returnList.push(body[0].faceRectangle.top);
-                        returnList.push(body[0].faceRectangle.top + body[0].faceRectangle.height);
-                        returnList.push(body[0].faceRectangle.left);
-                        returnList.push(body[0].faceRectangle.left + body[0].faceRectangle.width);
+                request(randomPic, function (error, response, body) {
+                    if (error) {
+                        console.log("deadlink", randomPic);
+                        res.json("dead link");
                     }
                     else {
-                        returnList.push(-1);
-                        returnList.push(-1);
-                        returnList.push(-1);
-                        returnList.push(-1);
+                        request(faceOptions, function (error, response, body) {
+                            console.log('eeeeee', error);
+                            if (error) {
+                                res.json("dead link");
+                            } else {
+                                console.log('173', body);
+                                console.log('174', body.length);
+                                if (body.length != 0) {
+                                    returnList.push(body[0].faceRectangle.top);
+                                    returnList.push(body[0].faceRectangle.top + body[0].faceRectangle.height);
+                                    returnList.push(body[0].faceRectangle.left);
+                                    returnList.push(body[0].faceRectangle.left + body[0].faceRectangle.width);
+                                } else {
+                                    returnList.push(-1);
+                                    returnList.push(-1);
+                                    returnList.push(-1);
+                                    returnList.push(-1);
+                                }
+                                returnList.push(feelingScore);
+                                console.log('188', returnList);
+                                res.json(returnList);
+                            }
+                        });
                     }
-                    returnList.push(feelingScore);
-                    console.log(returnList);
-                    res.json(returnList);
                 });
             });
         });

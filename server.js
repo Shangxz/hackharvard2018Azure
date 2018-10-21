@@ -138,7 +138,8 @@ router.get('/', function (req, res) {
                         // });
                     }
                 }
-                var randomPic = imgList[Math.floor(Math.random() * imgList.length)];
+                // var randomPic = imgList[Math.floor(Math.random() * imgList.length)];
+                var randomPic = imgList[0];
 
                 var returnList = [qStr, randomPic];
 

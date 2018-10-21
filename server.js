@@ -63,7 +63,7 @@ router.get('/', function (req, res) {
 
         var optionsImg = {
             method: 'GET',
-            url: 'https://api.cognitive.microsoft.com/bing/v7.0/images/search',
+            url: 'https://api.cognitive.microsoft.com/bing/v7.0/images/search?aspect=square',
             qs: {
                 q: qStr
             },

@@ -165,7 +165,7 @@ router.get('/', function (req, res) {
                 request(faceOptions, function (error, response, body) {
                     if (error) throw new Error(error);
                     console.log(body);
-                    if (body.length != []) {
+                    if (body.length != 0) {
                         returnList.push(body[0].faceRectangle.top);
                         returnList.push(body[0].faceRectangle.top + body[0].faceRectangle.height);
                         returnList.push(body[0].faceRectangle.left);

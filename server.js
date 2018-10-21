@@ -118,10 +118,10 @@ router.get('/', function (req, res) {
                     returnList.push(body[0].faceRectangle.left + body[0].faceRectangle.width);
                 }
                 else {
-                    returnList.push(-1);
-                    returnList.push(-1);
-                    returnList.push(-1);
-                    returnList.push(-1);
+                    returnList.push('-1');
+                    returnList.push('-1');
+                    returnList.push('-1');
+                    returnList.push('-1');
                 }
                 console.log(returnList);
                 res.json(returnList);

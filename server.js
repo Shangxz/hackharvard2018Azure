@@ -63,7 +63,7 @@ router.get('/', function (req, res) {
 
         var optionsImg = {
             method: 'GET',
-            url: 'https://api.cognitive.microsoft.com/bing/v7.0/images/search',
+            url: 'https://api.cognitive.microsoft.com/bing/v7.0/images/search?aspect=square&aspect=wide',
             qs: {
                 q: qStr
             },
@@ -116,6 +116,12 @@ router.get('/', function (req, res) {
                     returnList.push(body[0].faceRectangle.top + body[0].faceRectangle.height);
                     returnList.push(body[0].faceRectangle.left);
                     returnList.push(body[0].faceRectangle.left + body[0].faceRectangle.width);
+                }
+                else {
+                    returnList.push(-1);
+                    returnList.push(-1);
+                    returnList.push(-1);
+                    returnList.push(-1);
                 }
                 console.log(returnList);
                 res.json(returnList);

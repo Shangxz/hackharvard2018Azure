@@ -48,7 +48,7 @@ router.get('/', function (req, res) {
 
         var qStr = "";
         console.log(body.documents[0]);
-        if (body.documents[0] == undefined) {
+        if (body.documents[0].keyPhrases == []) {
             qStr = req.query.text;
         }
         else {

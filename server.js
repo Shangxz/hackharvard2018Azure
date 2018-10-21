@@ -87,8 +87,10 @@ router.get('/', function (req, res) {
 
             var optionsImg = {
                 method: 'GET',
-                url: 'https://api.cognitive.microsoft.com/bing/v7.0/images/search?aspect=square&aspect=wide',
+                url: 'https://api.cognitive.microsoft.com/bing/v7.0/images/search',
                 qs: {
+                    aspect: 'wide',
+                    maxFileSize: '520192',
                     q: qStr
                 },
                 headers: {

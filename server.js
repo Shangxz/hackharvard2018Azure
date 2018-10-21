@@ -76,6 +76,7 @@ router.get('/', function (req, res) {
 
         request(feelingOptions, function (error, response, body) {
             if (error) throw new Error(error);
+            console.log(body);
             feelingScore = body.documents[0].score;
 
             if (feelingScore < 0.4) {
@@ -109,7 +110,31 @@ router.get('/', function (req, res) {
                 var temp_key = "";
                 for (var i = 0; i < 35; i++) {
                     if (bodyJson != 'undefined') {
-                        imgList.push(bodyJson.value[i].contentUrl);
+                        //https://www.kaggle.com/cenkbircanoglu/comic-books-classification
+                        var classOptions = {
+                            method: 'POST',
+                            url: 'https://southcentralus.api.cognitive.microsoft.com/customvision/v2.0/Prediction/4986dfb4-fcce-4b8e-8927-cae52c83c99b/url',
+                            qs: {
+                                iterationId: 'ed466a33-4e2d-4dc0-a4d1-8329b1b170bb'
+                            },
+                            headers: {
+                                'postman-token': '9877b983-17c4-0ad2-cc1d-462e57b782fb',
+                                'cache-control': 'no-cache',
+                                'content-type': 'application/json',
+                                'prediction-key': '94b9c943b68e45d48f2c1c71dd79819a'
+                            },
+                            body: {
+                                Url: bodyJson.value[i].contentUrl
+                            },
+                            json: true
+                        };
+                        request(classOptions, function (error, response, body) {
+                            if (error) throw new Error(error);
+                            console.log(body.predictions[0].tagName);
+                            if (body.predictions[0].tagName == 'comic') {
+                                imgList.push(bodyJson.value[i].contentUrl);
+                            }
+                        });
                     }
                 }
                 var randomPic = imgList[Math.floor(Math.random() * imgList.length)];
